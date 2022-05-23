@@ -23,7 +23,7 @@ addEx = 5 + 4
 subEx = 5 - 4
 mulEx = 5 * 4
 divEx = 5 / 4
-modEx = mod 5 4 (or modEx = 5 'mod' 4)
+modEx = mod 5 4 (or modEx = 5 `mod` 4)
 ```
 
 Square root:
@@ -110,4 +110,74 @@ zeroToTen = [0..10]
 Generate list of even numbers:
 ``` haskell
 evenList = [2,4..20]
+```
+
+Generate a list of letters:
+``` haskell
+letterList = ['A', 'C'..'Z']
+```
+
+Generate a list of ten 2s:
+``` haskell
+many2s = take 10 (repeat 2)
+or
+many2s = replicate 10 2
+```
+
+Generate a cycle list:
+``` haskell
+cycleList = take 10 (cycle [1,2,32,4,5])
+-- should produce [1,2,3,4,5,1,2,3,4,5]
+```
+
+List times by 2:
+``` haskell
+listTimes2 = [x * 2 | x <- [1..10]]
+```
+
+List times by 2 and filtering:
+``` haskell
+listTimes2 = [x * 2 | x <- [1..10], x * 2 <= 15]
+```
+
+Check if divisible by 9 and 13:
+``` haskell
+divisBy9N13 = [x | x <- [1..500], x `mod` 13 == 0, x `mod` 9 == 0]
+```
+
+Sort a list:
+``` haskell
+sortedList = sort [9,1,8,3,4,7,6]
+```
+
+Zip two lists:
+``` haskell
+sumOfLists = zipWith (+) [1,2,3,4,5] [6,7,8,9,10]
+-- should produce [7,9,11,13,15]
+```
+
+Filter:
+``` haskell
+listBiggerThen5 = filter (>5) morePrimes
+```
+
+Take while:
+``` haskell
+evensUpTo20 = takeWhile (<= 20) [2,4..]
+```
+
+Multiply of list from left:
+``` haskell
+multOfList = foldl (*) 1 [2,3,4,5]
+-- l means from left
+```
+
+Generate powers list:
+``` haskell
+pow3List = [3^n | n <- [1..10]]
+```
+
+MultTable:
+``` haskell
+multTable = [[x * y | y <- [1..10]] | x <- [1..10]]
 ```
