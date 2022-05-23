@@ -181,3 +181,164 @@ MultTable:
 ``` haskell
 multTable = [[x * y | y <- [1..10]] | x <- [1..10]]
 ```
+
+Create a tuple pair:
+``` haskell
+bobSmith = ("Bob Smith", 52)
+```
+
+Get the name and age from the tuple above:
+``` haskell
+bobName = fst bobSmith
+bobAge = snd bobSmith
+```
+
+Zip to tuples:
+``` haskell
+names = ["Bob", "Mary", "Tom"]
+addresses = ["123 Main", "234 North", "567 South"]
+
+namesAddresses = zip names addresses
+```
+
+Functions:
+``` haskell
+main = do 
+  putStrln "What's your name"
+  name <- getline
+  putStrln("Hello" ++ name)
+```
+
+Type declaration:
+``` haskell
+addMe :: Int -> Int -> Int
+-- funcName param1 param2 = operations (returned value)
+addMe x y = x + y
+
+addTuples :: (Int, Int) -> (Int, Int) -> (Int, Int)
+addTuples (x, y) (x2, y2) = (x + x2, y + y2)
+```
+
+Recursion:
+``` haskell
+factorial :: Int -> Int
+factorial 0 = 1
+factorial n = n * factorial (n-1)
+```
+
+Check if is odd:
+``` haskell
+isOdd :: Int -> Bool
+isOdd n
+  | n `mod` 2 == 0 = False
+  | otherwise = True
+```
+
+What grade example:
+``` haskell
+whatGrade :: Int -> String
+whatGrade age
+  | (age >= 5) && (age <= 6) = "Kindergarten"
+  | (age > 6) && (age <= 10) = "Elementary School"
+  | (age > 10) && (age <= 14) = "Middle School"
+  | (age > 14) && (age <= 18) = "High School"
+  | otherwise = "Go to college"
+```
+
+Where statement:
+``` haskell
+batAvgRating :: Double -> Double -> String
+batAvgRating hits atBats
+  | avg <= 0.200 = "Terrible Batting Average"
+  | avg <= 0.500 = "Average Player"
+  | avg <= 0.280 = "You are doing pretty good"
+  | otherwise = "You are a Superstar"
+  where avg = hits / atBats
+```
+
+Get list items:
+``` haskell
+getListItems :: [Int] -> String
+getListItems [] = "Your list is empty"
+getListItems (x:[]) = "Your list starts with" ++ show x
+getListItems (x:y:[]) = "Your list contains" ++ show x ++ "and" ++ show y
+getListItems (x:xs) = "The 1st item is " ++ show x ++ "and the rest are" show xs
+```
+
+As pattern:
+``` haskell
+getFirstItem :: String -> String
+getFirstItem [] = "Empty String"
+getFirstItem all@(x:xs) = "The first letter in " ++ all ++ "is " ++ [x]
+```
+
+Higher order functions:
+``` haskell
+times4 :: Int -> Int
+times4 x - x * 4
+listTimes4 = map times4 [1,2,3,4,5]
+
+multBy4 :: [Int] -> [Int]
+multBy4 [] = []
+multBy4 (x:xs) = times4 : multBy4 xs
+```
+
+More on x:xs:
+``` haskell
+areStringEq :: [Char] -> [Char] -> Bool
+areStringEq [] [] = True
+areStringEq (x:xs) (y:ys) = x == y && areStringEq xs ys
+areStringEq _ _ = False
+``` 
+
+Passing a function into a function:
+``` haskell
+times4 :: Int -> Int
+times4 x = x * 4
+doMult :: (Int -> Int) -> Int
+doMult func = func 3
+num3Times4 = doMult times4
+```
+
+Lambda:
+``` haskell
+dbl1To10 = map (\x -> x * 2) [1..10]
+```
+
+If:
+``` haskell
+doubleEvenNumber y = 
+  if (y `mod` 2 /= 0) 
+    then y
+    else y * 2
+    
+getClass :: Int -> String
+getClass n = case n of 
+  5 -> "Go to Kindergarten"
+  6 -> "Go to elementary school"
+  _ -> "Go away"
+```
+
+Modules:
+``` haskell
+module SampFunctions (getClass, doubleEvenNumbers) where
+-- all my functions listed
+import SampFunctions
+```
+
+Enumerations:
+``` haskell
+data BaseballPlayer = Pitcher | Catcher | Infielder | Outfield deriving Show
+barryBonds :: BaseballPlayer -> Bool
+barryBonds Outfield = True
+barryInOf = print(barryBonds Outfield)
+```
+
+Customer data types:
+``` haskell
+data Customer = Customer String String Double devring Show
+toSmith :: Customer
+toSmith = Customer "Tom Smith" "123 Main" 20.50
+getBalance :: Customer -> Double
+getBalance (Customer _ _ b) = b
+```
