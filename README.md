@@ -342,3 +342,89 @@ toSmith = Customer "Tom Smith" "123 Main" 20.50
 getBalance :: Customer -> Double
 getBalance (Customer _ _ b) = b
 ```
+
+Polymorphic Type:
+``` haskell
+data Shape = Circle Float Float Float | Rectangle Float Float Float Float
+  deriving Show
+area :: Shape -> Float 
+area (Circle _ _ r) = pi * r ^ 2
+area (Rectangle x y x2 y2) = (abs (x2 - x)) * (abs (y2 - y))
+-- equivalent to (abs $ x2 - x) * (abs $ y2 - y)
+sumValue = putStrln (Show (1+2))
+sumValue = putStrln . show $ 1 + 2
+
+areaOfCircle = area (Circle 50 60 20)
+areaOfRect = area $ Rectangle 100 10 100 100
+```
+
+Type classes:
+``` haskell
+data Employee = Employee {
+                          name :: String,
+                          position :: String,
+                          idNum :: Int
+                          } deriving (Eq, Show)
+samSmith = Employee {name = "Sam Smith", position = "Manager", idNum = 1000}
+pamMax = Employee {name = "Pam Max", position = "Employee", idNum = 1001}
+
+isSamPam = samSmith == pamMax
+
+samSmithData = show samSmith
+-- print the information out
+```
+
+Type instance:
+``` haskell
+data ShirtSize S | M | L
+instance Eq ShirtSize where
+  S == S = True
+  M == M = True
+  L == L = True
+  _ == _ = False
+  
+instance Show ShirtSize where
+  show S = "Small"
+  show M = "Medium"
+  show L = "Large"
+  
+smallAvail = S `elem` [S, M, L]
+theSize = show S
+```
+
+Custom Typeclass:
+``` haskell
+class MyEq a where
+  areEqual :: a -> a -> Bool
+  
+instance MyEq ShirtSize where
+  areEqual S S = True
+  areEqual M M = True
+  areEqual L L = True
+  areEqual _ _ = False
+
+newSize = areEqual M M
+```
+
+File I/O:
+``` haskell
+sayHello = do
+  putStrln "What's your name"
+  name <- getLine
+  putStrLn $ "Hello " ++ name
+  
+writeToFile = do
+  theFile <- openFile "test.txt" WriteMode
+  hPutStrLn theFile ("Random line of text")
+  hClose theFile
+  
+readFromFile = do
+  theFile2 <- openFile "text.txt" ReadMode
+  contents <- hGetContents theFile2
+  hClose theFile2
+```
+
+Fibonacci sequence
+``` haskell
+fib = 1 : 1 : [a + b | (a, b) <- zip fib (tail fib)]
+```
