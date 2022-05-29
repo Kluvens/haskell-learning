@@ -1,5 +1,38 @@
 # haskell-learning
 
+## Basic Haskell
+
+### Values
+Values are terms, such as ```5``` (an integer number), ```"Hello World!"``` (a character string), and ```3.141``` (a floating point number). Values are processed by functions. For example, addition ```+``` takes two numbers and produces a new number, namely the sum of the two input values; ```++``` takes two strings and produces a new string by concatenating the two input strings; ```length``` takes a string and produces a number, namely the length of the input string. In other words, functions, such as +, ++, and length, are mappings from input values to output values.
+
+### Types
+Values can be grouped into sets with similar properties. For example, values which represent integers, strings, booleans, or floating point numbers. We call such sets of values types. Some examples of types which are present in most programming languages are the following:
+- ```Int``` = {…, -3, -2, -1, 0, 1, 2, 3, …}
+- ```Float``` = {…, -1232.42342, …, 1.0, 3.141, …}
+- ```Double``` =  {… , -1232.42342, …, 1.0, 3.141, …}
+- ```Char``` = {…, 'a', 'A', 'b', 'B', …'1', …, '@', '#', …}
+- ```String``` = {"", "a", "b", …, "Hi" ,"3423#", …}
+- ```Bool``` = {False, True}
+
+We write ```1 :: Int``` or ```"Hello" :: String``` to indicate that the values ```1``` and ```Hello``` have the the type ```Int``` and ```String```, respectively. Hence, ```1 :: Int``` can be read as “```1``` has type ```Int```”.
+
+Types essentially describe sets of values with similar properties and help us to distinguish correct from erroneous programs. For example, the expression ```1 + "abc"``` contains a type error, because the string value ```"abc"``` does not match the type of argument expected by ```+```. We call an expression without type errors well typed. Programming languages that enforce a rigorous type discipline are often called strongly typed languages. Type errors should generally be regarded as a hint by the programming system, telling us that part of our program do not make sense —the program is inconsistent— and they are one of the means by which the programming system helps us write better programs.
+
+### Functions
+We have seen that, by applying functions to values, we can compute new values; but, how can we define new functions? Let us start with a simple example and write a function that increments a number by the value ```1```; let us call this function ```inc```. So, the application ```inc 10``` should produce ```11```, ```inc 11``` should produce ```12```, and so forth — in other words, for any number ```x```, the expression inc ```x```, should yield ```x + 1```.
+
+In ```inc x = x + 1```, ```inc x``` is called the head and ```x + 1``` is called the body.
+
+A bit nesting: ```inc (inc 5)``` => ```inc (5 + 1)``` => ```inc 6``` => ```6 + 1``` => ```7```
+
+### Type signatures
+Functions map input values to output values, for example, ```inc``` maps integers to integers. Thus, we denote the type of ```inc``` as ```Int -> Int```.
+```
+inc :: Int -> Int     -- type signature
+inc x = x + 1         -- function equation
+```
+
+## Coding examples
 ```f ::  Int -> Bool``` (f is the function name, :: is of type, Int is the domain, Bool is the codomain)
 
 ```f x = (x > 0)``` (x is the input, x > 0 is the output)
