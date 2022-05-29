@@ -32,6 +32,46 @@ inc :: Int -> Int     -- type signature
 inc x = x + 1         -- function equation
 ```
 
+### Multiple arguments
+we can turn into a function with two arguments as follows:
+```
+average :: Float -> Float -> Float
+average a b  = (a + b) / 2.0
+```
+So, we have
+```average 3.0 4.0``` => ```(3.0 + 4.0)/2.0``` => ```3.5```
+
+
+### Frequently used type classes and overloaded functions
+Typeclass ```Show```:
+- functions: ```show :: Show a => a -> String```: convert the given value into a string.
+- member types: almost all predefined types, excluding function types.
+
+Typeclass ```Eq```:
+- funcions: ```(==), (/=) :: Eq a => a -> a -> Bool```: equality and inequality.
+- member types: almost all predefined types, excluding function types.
+
+Typeclass ```Ord```:
+- functions: ```(<), (>), (<=), (>=) :: Ord a => a -> a-> Bool```: less than, greater than, less or equal, greater or equal
+- member types: almost all predefined types, excluding function types.
+- all types in ```Ord``` are already in ```Eq```, so if you are using both ```==``` and ```<``` on a value, it is sufficient to require it to be in ```Ord```.
+
+Typeclasss ```Num```:
+- functions: ```(+), (-), (*) :: Num a => a -> a -> a```: arithmetic operations.
+- member types: ```Float, Double, Int, Integer```
+
+Typeclass ```Integral```:
+- functions: ```div, mod :: Integral a => a -> a -> a```: division.
+- member types: ```Int```(fixed precision), ```Integer```(arbitrary precision)
+
+Typeclass ```Fractional```:
+- functions: ```(/) :: Fractional a => a -> a -> a```: division.
+- member types: ```Float, Double```
+
+Typeclass Floating:
+- functions: ```sin, cos, tan, exp, sqrt,… :: Floating a => a -> a```: trigonometric and other functions.
+- member types: ```Float, Double```
+
 ## Coding examples
 ```f ::  Int -> Bool``` (f is the function name, :: is of type, Int is the domain, Bool is the codomain)
 
