@@ -9,6 +9,8 @@ to load file, we use :l example.hs
 
 module Example where
 
+-- Like C has with its string library, Haskell has some functions which are in packages/libraries outside of what is provided in the base language. 
+-- toLower and sort exist outside of the base language and therefore need to be imported.
 import Data.Char (toLower)
 import Data.List (sort)
 
