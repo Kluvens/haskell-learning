@@ -20,7 +20,13 @@ import Data.List (sort)
 -- most common words in the given string s.
 
 -- 1. break the input string into words
+-- The following line is declaring a function
+-- NameOfFunction :: Domain(Input type) -> Codomain(Output type)
 breakIntoWords :: String -> [String]
+-- The following line is the body of a function
+-- NameofFunction = AnotherFunction 
+-- or 
+-- NameOfFunction Argument = Result
 breakIntoWords = words
 
 -- 2. convert the words to lowercase
