@@ -41,6 +41,8 @@ average a b  = (a + b) / 2.0
 So, we have
 ```average 3.0 4.0``` => ```(3.0 + 4.0)/2.0``` => ```3.5```
 
+In haskell, ```average :: Float -> Float -> Float``` means the same thing as ```average :: Float -> (Float -> Float)```
+
 
 ### Frequently used type classes and overloaded functions
 Typeclass ```Show```:
