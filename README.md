@@ -2,6 +2,13 @@
 
 ## Basic Haskell
 
+**How haskell works**
+```
+average :: Float -> Float -> Float
+average a b  = (a + b) / 2.0
+```
+```average``` is the name of the function, and takes two parameters ```a``` and ```b```. Doing the process on the right hand side, the return value is the thing on the right hand side. ```=`` in haskell means that you are defining the thing on the RHS to be the value of the LHS.
+
 ### Values
 Values are terms, such as ```5``` (an integer number), ```"Hello World!"``` (a character string), and ```3.141``` (a floating point number). Values are processed by functions. For example, addition ```+``` takes two numbers and produces a new number, namely the sum of the two input values; ```++``` takes two strings and produces a new string by concatenating the two input strings; ```length``` takes a string and produces a number, namely the length of the input string. In other words, functions, such as +, ++, and length, are mappings from input values to output values.
 
