@@ -7,6 +7,20 @@ multiple line comments
 to load file, we use :l example.hs
 -}
 
+{-
+Given a number n and a string s containing English words, generate
+a report that lists the n most common words in the given string s.
+
+Break into steps:
+1 Break the input string into words.
+2 Convert the words to lowercase.
+3 Sort the words.
+4 Group adjacent occurrences (runs) of the same word.
+5 Sort runs words by length.
+6 Take the longest n runs of the sorted list.
+7 Generate a report.
+-}
+
 module Example where
 
 -- Like C has with its string library, Haskell has some functions which are in packages/libraries outside of what is provided in the base language. 
