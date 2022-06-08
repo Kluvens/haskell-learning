@@ -34,6 +34,13 @@ In ```inc x = x + 1```, ```inc x``` is called the head and ```x + 1``` is called
 
 A bit nesting: ```inc (inc 5)``` => ```inc (5 + 1)``` => ```inc 6``` => ```6 + 1``` => ```7```
 
+### Useful functions
+A useful function is ```map```, which given a function, applies it to each element of a list: 
+- The type of ```map``` is ```map :: (a -> b) -> [a] -> [b]``` which takes a function and a list then return a new list.
+- ```map not [True, False, True]``` implies ```[False, True, False]```
+- ```map square [3, -2, 4]``` implies ```[9, 4, 6]```
+- ```map (\x -> x + 1) [1, 5]``` implies ```[2, 6]```
+
 ### Type signatures
 Functions map input values to output values, for example, ```inc``` maps integers to integers. Thus, we denote the type of ```inc``` as ```Int -> Int```.
 ```
