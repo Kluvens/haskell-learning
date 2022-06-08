@@ -45,3 +45,16 @@ fact n result i
     
 factorial :: Int -> Int
 factorial n = product [1 .. n]
+
+isEmpty :: [a] -> Bool
+isEmpty xs = case xs of
+    [] -> True
+    (y:ys) -> False
+    
+isEmpty' :: [a] -> Bool
+isEmpty' [] = True
+isEmpty' (y:ys) = False
+
+product' :: (Int) -> Int
+product' [] = 1
+product' (y:ys) = y * product' ys
