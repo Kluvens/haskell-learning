@@ -42,3 +42,6 @@ fact :: Int -> Int -> Int -> Int
 fact n result i
     | i <= n = fact n (result * i) (i + 1)
     | otherwise = result
+    
+factorial :: Int -> Int
+factorial n = product [1 .. n]
