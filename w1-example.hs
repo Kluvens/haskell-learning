@@ -1,4 +1,4 @@
-```
+``` haskell
 -- comments
 
 {-
@@ -26,7 +26,7 @@ module Example where
 -- Like C has with its string library, Haskell has some functions which are in packages/libraries outside of what is provided in the base language. 
 -- toLower and sort exist outside of the base language and therefore need to be imported.
 import Data.Char (toLower)
-import Data.List (sort)
+import Data.List (sort, sortOn, group)
 
 -- Task 1:
 -- Given a number n and a string s containing English words
@@ -54,24 +54,31 @@ sortWords = sort
 -- 4. group adjacent occurrences (runs)
 type Run = [String]
 groupAdjacentRuns :: [String] -> [Run]
-groupAdjacentRuns = undefined
+groupAdjacentRuns = group
 
 -- 5. sort by length of the run
 sortByLength :: [Run] -> [Run]
-sortByLength = undefined
+sortByLength = sortOn length
 
 -- 6. take the n longest runs
 takeLongestRuns :: Int -> [Run] -> [Run]
-takeLongestRuns = undefined
+takeLongestRuns n runs = take n (reverse runs)
 
 -- 7. generate report
 generateReport :: [Run] -> String
-generateReport = undefined
+generateReport runs = unwords (map displayRun runs) where
+  displayRun :: Run -> String
+  displayRun run = theWord ++ " " ++ show theTimes where
+    theWord :: String
+    theWord = head run
+    theTimes :: Int
+    theTimes = length run
 
 -- then put it all together
 program :: Int -> String -> String
-program n s =
-  generateReport (takeLongestRuns n (sortByLength (
-        groupAdjacentRuns (sortWords (convertToLowercase (breakIntoWords s)))
-  )))
+program n s = generateReport . takeLongestRuns n . sortByLength . groupAdjacentRuns . sortWords . convertToLowercase . breakIntoWords $ s
+-- program n s =
+--   generateReport (takeLongestRuns n (sortByLength (
+--         groupAdjacentRuns (sortWords (convertToLowercase (breakIntoWords s)))
+--   )))
 ```
