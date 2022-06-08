@@ -11,8 +11,10 @@ Values can be grouped into sets with similar properties. For example, values whi
 - ```Float``` = {…, -1232.42342, …, 1.0, 3.141, …}
 - ```Double``` =  {… , -1232.42342, …, 1.0, 3.141, …}
 - ```Char``` = {…, 'a', 'A', 'b', 'B', …'1', …, '@', '#', …}
-- ```String``` = {"", "a", "b", …, "Hi" ,"3423#", …}
+- ```String(but acturally String is [Char])``` = {"", "a", "b", …, "Hi" ,"3423#", …}
 - ```Bool``` = {False, True}
+- ```Tuple``` = {(3, 5)...} where ```("hello", "world")``` is of type ```([Char], [Char])```
+- ```List``` -> ```"hello world"``` is ```[Char]```; ```[1, 2, 3]``` is a list of integers.
 
 We write ```1 :: Int``` or ```"Hello" :: String``` to indicate that the values ```1``` and ```Hello``` have the the type ```Int``` and ```String```, respectively. Hence, ```1 :: Int``` can be read as “```1``` has type ```Int```”.
 
