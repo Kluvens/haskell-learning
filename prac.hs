@@ -21,3 +21,24 @@ div2 x = (divResult, reminder) where
     divResult = x `div` 2
     reminder :: Int
     reminder = x `mod` 2
+    
+polarity :: Int -> String
+polarity x = if (x > 0) then "Positive" else if (x < 0) then "Negative" else "zero"
+
+polarity2 :: Int -> String
+polarity2 x
+    | x > 0 = "Positive"
+    | x < 0 = "Negative"
+    | otherwise = "zero"
+    
+polarity3 x = case x > 0 of 
+    False -> case x < 0 of
+        False -> "zero"
+        True -> "Negative"
+    True -> "Positive"
+    
+-- recursion to get factorial
+fact :: Int -> Int -> Int -> Int
+fact n result i
+    | i <= n = fact n (result * i) (i + 1)
+    | otherwise = result
