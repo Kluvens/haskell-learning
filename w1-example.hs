@@ -1,4 +1,3 @@
-``` haskell
 -- comments
 
 {-
@@ -81,4 +80,3 @@ program n s = generateReport . takeLongestRuns n . sortByLength . groupAdjacentR
 --   generateReport (takeLongestRuns n (sortByLength (
 --         groupAdjacentRuns (sortWords (convertToLowercase (breakIntoWords s)))
 --   )))
-```
