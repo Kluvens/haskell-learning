@@ -58,3 +58,20 @@ isEmpty' (y:ys) = False
 product' :: (Int) -> Int
 product' [] = 1
 product' (y:ys) = y * product' ys
+
+-- The following is to illustrate enumerated data types
+
+-- with data, we are creating a new type
+data Document = Passport | BirthCert | License | StudentID | CreditCard
+
+data Category = Primary | Secondary | Tertiary
+
+category :: Document -> Category
+category Passport -> Primary
+category BirthCert -> Primary
+category License -> Secondary
+category StudentID -> Secondary
+category _ -> Tertiary
+    
+
+
