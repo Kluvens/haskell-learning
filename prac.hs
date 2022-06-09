@@ -62,16 +62,23 @@ product' (y:ys) = y * product' ys
 -- The following is to illustrate enumerated data types
 
 -- with data, we are creating a new type
-data Document = Passport | BirthCert | License | StudentID | CreditCard
+data Document = Passport | BirthCert | License | StudentID | CreditCard deriving (Show, Eq)
 
-data Category = Primary | Secondary | Tertiary
+data Category = Primary | Secondary | Tertiary deriving (Show, Eq)
 
 category :: Document -> Category
-category Passport -> Primary
-category BirthCert -> Primary
-category License -> Secondary
-category StudentID -> Secondary
-category _ -> Tertiary
+category Passport = Primary
+category BirthCert = Primary
+category License = Secondary
+category StudentID = Secondary
+category _ = Tertiary
     
-
+points :: [Document] -> Int
+points docs = 70*primaryCounts + 25*tertiaryCounts + secondaryPoints secondaryDocuments where
+    primaryCounts = length $ filter (\x -> category x == Primary) docs
+    tertiaryCounts = length $ filter (\x -> category x == Tertiary) docs
+    secondaryDocuments = filter (\x -> category x == Secondary) docs
+    secondaryPoints :: [Document] -> Int
+    secondaryPoints [] = 0
+    secondaryPoints (x:xs) = 40 + (25 * length xs)
 
