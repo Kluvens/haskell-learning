@@ -29,12 +29,17 @@ Types essentially describe sets of values with similar properties and help us to
 
 ```Lists``` are singly-linked lists in Haskell. The empty list is written as ```[]``` and a list node is written as x : xs. The value x is called the head and rest of the list xs is called the tail. Thus, ```"hi!" == ['h', 'i', '!'] == 'h':('i':('!':[])) == 'h':'i':'!':[]```
 
+## Data constructor
+data constructors are essentially functions that produce values of particular variety of some type.
+
 ### Functions
 We have seen that, by applying functions to values, we can compute new values; but, how can we define new functions? Let us start with a simple example and write a function that increments a number by the value ```1```; let us call this function ```inc```. So, the application ```inc 10``` should produce ```11```, ```inc 11``` should produce ```12```, and so forth — in other words, for any number ```x```, the expression inc ```x```, should yield ```x + 1```.
 
 In ```inc x = x + 1```, ```inc x``` is called the head and ```x + 1``` is called the body.
 
 A bit nesting: ```inc (inc 5)``` => ```inc (5 + 1)``` => ```inc 6``` => ```6 + 1``` => ```7```
+
+In haskell, there are technically no "multi-argument" functions. Every function that appears to be multi-argument on the surface is actually just **curried** so that they return a sequence of single-argument functions, that in turn may return similar such functions.
 
 ### Useful functions
 A useful function is ```map```, which given a function, applies it to each element of a list: 
@@ -60,7 +65,6 @@ So, we have
 ```average 3.0 4.0``` => ```(3.0 + 4.0)/2.0``` => ```3.5```
 
 In haskell, ```average :: Float -> Float -> Float``` means the same thing as ```average :: Float -> (Float -> Float)```
-
 
 ### Frequently used type classes and overloaded functions
 Typeclass ```Show```:
