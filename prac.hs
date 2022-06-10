@@ -82,3 +82,25 @@ points docs = 70*primaryCounts + 25*tertiaryCounts + secondaryPoints secondaryDo
     secondaryPoints [] = 0
     secondaryPoints (x:xs) = 40 + (25 * length xs)
 
+-- This example is about compound data types
+data MonthDayType = MonthDayConstructor Int Int deriving (Show, Eq)
+
+showMonthDay :: MonthDayType -> String
+showMonthDay (MonthDayConstructor m d) =
+    "the day is " ++ show d ++ " and the month is " ++ show m
+    
+-- We can have multiple constructors.
+data WeekDay = Mon | Tue | Wed | ...
+
+-- recursive and parametric types
+divide :: Int -> Int -> Maybe Int
+divide x 0 = Nothing
+divide x y = Just (x `div` y)
+
+data Maybe a = Just a | Nothing
+data List a = Nil | Cons a (List a)
+data Natural = Zero | Suc Natural deriving (Show, Eq)
+
+length' :: List a -> Int
+length' Nil = 0
+length' (Cons x xs) = 1 + length' xs
