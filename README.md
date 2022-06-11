@@ -29,8 +29,20 @@ Types essentially describe sets of values with similar properties and help us to
 
 ```Lists``` are singly-linked lists in Haskell. The empty list is written as ```[]``` and a list node is written as x : xs. The value x is called the head and rest of the list xs is called the tail. Thus, ```"hi!" == ['h', 'i', '!'] == 'h':('i':('!':[])) == 'h':'i':'!':[]```
 
-## Data constructor
+### Data constructor
 data constructors are essentially functions that produce values of particular variety of some type.
+
+### Types in design
+``` haskell
+data Contact = C Name (Maybe Address) (Maybe Email)
+```
+is changed to:
+``` haskell
+data ContactDetails = EmailOnly Email
+                    | PostOnly Address
+                    | Both Address Email
+data Contact = C Name ContactDetails
+```
 
 ### Functions
 We have seen that, by applying functions to values, we can compute new values; but, how can we define new functions? Let us start with a simple example and write a function that increments a number by the value ```1```; let us call this function ```inc```. So, the application ```inc 10``` should produce ```11```, ```inc 11``` should produce ```12```, and so forth — in other words, for any number ```x```, the expression inc ```x```, should yield ```x + 1```.
@@ -40,6 +52,43 @@ In ```inc x = x + 1```, ```inc x``` is called the head and ```x + 1``` is called
 A bit nesting: ```inc (inc 5)``` => ```inc (5 + 1)``` => ```inc 6``` => ```6 + 1``` => ```7```
 
 In haskell, there are technically no "multi-argument" functions. Every function that appears to be multi-argument on the surface is actually just **curried** so that they return a sequence of single-argument functions, that in turn may return similar such functions.
+
+### Partial functions
+A partial function is a function not defined for all possible inputs. e.g. head, tail, (!!), division.
+
+Partial functions are to be avoided, because they cause your program to crash if undefined cases are encountered.
+
+To eliminate partiality, we must
+
+1. enlarge the codomain, usually with a Maybe type:
+``` haskell
+safeHead :: [a] -> Maybe a
+safeHead (x:xs) = Just x
+safeHead [] = Nothing
+
+addFirstElements :: [Int] -> [Int] -> Maybe Int
+addFirstElements xs ys = case safeHead xs of
+  Nothing -> Nothing
+  Just x -> case safeHead ys of 
+    Nothing -> Nothing
+    Just y -> Just (x + y)
+```
+
+2. or we must constrain the domain to be more specific
+```
+data NonEmpty a
+  = One a 
+  | Cons a (NonEmpty)
+  deriving (Show, Eq)
+
+toList :: NonEmpty a -> [a]
+toList (One x) = [x]
+toList (ConsNE x xs) = x: toList xs
+
+safeHead' :: NonEmpty a -> a
+safeHead' (One x) = [x]
+safeHead' (ConsNE x _) = x
+```
 
 ### Useful functions
 A useful function is ```map```, which given a function, applies it to each element of a list: 
