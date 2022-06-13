@@ -158,6 +158,30 @@ instance Show a => ShortShow (Maybe a) where
   shortShow x = head (show x)
 ```
 
+## Semigroup
+A semigroup is a pair of a set S and an operation • : S → S → S where the operation • is associative.
+
+Associativity is defined as, for all a, b, c: (a • (b • c)) = ((a • b) • c)
+
+## Monoid
+A monoid is a semigroup (S, •) equipped with a special identity element z : S such that x • z = x and z • y = y for all x, y.
+``` haskell
+class (Semigroup a) => Monoid a where
+  mempty :: a
+```
+
+## Newtypes
+A newtype declaration is much like a data declaration except that there can be only one constructor and it must take exactly one argument:
+``` haskell
+newtype Score = S Integer
+
+instance Semigroup Score where
+  S x <> S y = S (x + y)
+  
+instance Monoid Score where
+  mempty = S 0
+```
+
 ## Coding examples
 ```f ::  Int -> Bool``` (f is the function name, :: is of type, Int is the domain, Bool is the codomain)
 
