@@ -145,6 +145,19 @@ Typeclass Floating:
 - functions: ```sin, cos, tan, exp, sqrt,… :: Floating a => a -> a```: trigonometric and other functions.
 - member types: ```Float, Double```
 
+User-defined typeclass:
+``` haskell
+calss ShortShow a where
+  shortShow :: a -> Char
+  
+instance ShortShow Bool where
+  shortShow True = 'T'
+  shortShow False = 'F'
+  
+instance Show a => ShortShow (Maybe a) where
+  shortShow x = head (show x)
+```
+
 ## Coding examples
 ```f ::  Int -> Bool``` (f is the function name, :: is of type, Int is the domain, Bool is the codomain)
 
