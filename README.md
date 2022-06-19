@@ -204,6 +204,31 @@ instance Monoid Score where
   mempty = S 0
 ```
 
+## Recursive types
+``` haskell
+data FamTree i
+  = NoKnownParents i (FamTree i)
+  | KnownMother i (FamTree i)
+  | KnownFather i (FamTree i)
+  | KnownMotherFather i (FamTree i) (FamTree i)
+  deriving (Show, Eq)
+
+carlo :: FamTree String
+carlo = NoKnownParents "Carlo"
+Louis :: FamTree String
+Louis = KnownFather "Louis" carlo
+hortense :: FamTree String
+hortense = NoKnownParents "Hortense"
+napoleon3 :: FamTree String
+napoleon3 = KnownMotherFather "Napoleon3" hortense louis
+
+numAncestors :: FamTree i -> Int
+numAncestors (NoKnownParents a) = 0
+numAncestors (KnownMother a motherTree) = 1 + numAncestors motherTree
+numAncestors (KnownFather a fatherTree) = 1 + numAncestors fatherTree
+numAncestors (KnownMotherFather a m f) = 2 + numAncestors m + numAncestors f
+```
+
 ## Coding examples
 ```f ::  Int -> Bool``` (f is the function name, :: is of type, Int is the domain, Bool is the codomain)
 
