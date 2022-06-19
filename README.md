@@ -31,6 +31,12 @@ Types essentially describe sets of values with similar properties and help us to
 
 ### Data constructor
 data constructors are essentially functions that produce values of particular variety of some type.
+``` haskell
+data MonthDayType = MonthDayConstructor Int Int deriving(Show, Eq)
+
+showMonthDay :: MonthDayType -> String
+showMonthDay (MonthDayConstructor m d) = "The day is " + show d + " and the month is " + show m 
+```
 
 ### Types in design
 ``` haskell
