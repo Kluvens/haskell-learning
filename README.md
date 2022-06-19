@@ -39,6 +39,12 @@ showMonthDay (MonthDayConstructor m d) = "The day is " + show d + " and the mont
 ```
 
 ### Types in design
+Maybe type is very useful when you don't want to return something
+``` haskell
+divide :: Int -> Int -> Maybe Int
+divide x 0 = Nothing
+divide x y = Just (x `div` y)
+```
 ``` haskell
 data Contact = C Name (Maybe Address) (Maybe Email)
 ```
@@ -48,6 +54,16 @@ data ContactDetails = EmailOnly Email
                     | PostOnly Address
                     | Both Address Email
 data Contact = C Name ContactDetails
+```
+More about Maybe, Just and Nothing:
+``` haskell
+incFirst :: [Int] -> Maybe Int
+incFirst [] = Nothing
+incFirst (x:xs) = Just (x+1)
+
+inconFirst :: [Int] -> Maybe [Int]
+inconFirst [] = Nothing
+inconFirst (x:xs) = Just ((x+1):xs)
 ```
 
 ### Functions
