@@ -215,8 +215,8 @@ data FamTree i
 
 carlo :: FamTree String
 carlo = NoKnownParents "Carlo"
-Louis :: FamTree String
-Louis = KnownFather "Louis" carlo
+louis :: FamTree String
+louis = KnownFather "Louis" carlo
 hortense :: FamTree String
 hortense = NoKnownParents "Hortense"
 napoleon3 :: FamTree String
