@@ -187,10 +187,43 @@ Associativity is defined as, for all a, b, c: (a • (b • c)) = ((a • b) •
 
 ## Monoid
 A monoid is a semigroup (S, •) equipped with a special identity element z : S such that x • z = x and z • y = y for all x, y.
+
+- Monoids: a simple type class
+- Type classes are somewhat like interfaces
+- Most important: the laws they satisfy
 ``` haskell
 class (Semigroup a) => Monoid a where
   mempty :: a
 ```
+
+Declaring Monoids:
+``` haskell
+data Sum = Sum Int deriving (Eq, Show)
+instance Semigroup Sum where
+  Sum x <> Sum y = Sum (x + y)        -- bullet (semigroup operation)
+instance Monoid Sum where
+  mappend = (<>)                      -- bullet (same as Semigroup operation)
+  mempty = Sum 0                      -- identity
+```
+``` haskell
+expo :: (Monoid g) => g -> Int -> g
+expo x 0 = mempty
+expo x n = x <> expo x (n-1) where
+  (<>) = mappend
+```
+``` haskell
+fexpo :: (Monoid g) => g -> Int -> g
+fexpo x 0 = mempty
+fexpo x n
+  | even n = y <> y
+  | otherwise = x <> fexpo x (n - 1) where
+  y = fexpo x (n `div` 2)
+```
+
+Monoid algorithms:
+- write once: need to write only one implementation
+- test/prove once: establish correctness using the laws
+- reuse: hundreds of monoids occur in real-world code
 
 ## Newtypes
 A newtype declaration is much like a data declaration except that there can be only one constructor and it must take exactly one argument:
