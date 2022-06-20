@@ -262,6 +262,19 @@ numAncestors (KnownFather a fatherTree) = 1 + numAncestors fatherTree
 numAncestors (KnownMotherFather a m f) = 2 + numAncestors m + numAncestors f
 ```
 
+## MapReduce with somewhat parallel version
+``` haskell
+import Control.Parallel (par)
+import Control.Parallel.Strategies (using, parMap, rpar)
+
+mapReduce' :: (Monoid g) =>
+              (i -> [p]) -> (p -> g) -> i -> g
+mapReduce' split f input = mapResult `par` reduceResult
+  where
+  mapResult = parMap rpar f (split input)
+  reduceResult = mconcat mapResult `using` rpar
+```
+
 ## Coding examples
 ```f ::  Int -> Bool``` (f is the function name, :: is of type, Int is the domain, Bool is the codomain)
 
