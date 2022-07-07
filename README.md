@@ -304,3 +304,95 @@ dangers:
 - they are not visible from the type signature of the function
 - they introduce non-local dependencies which is bad for software design, increasing coupling
 - they interface badly with strong typing, for example mutable arrays in Java, or reference types in ML
+
+## State Passing
+``` haskell
+data Tree a = Node a (Tree a) (Tree b) | Leaf
+label :: Tree a -> Tree Integer
+```
+
+Tree example:
+``` haskell
+data Tree a
+  = Leaf
+  | Node a (Tree a) (Tree a)
+  deriving (Show, Eq)
+  
+exampleTree :: Tree ()
+exampleTree = Node () (Node () Leaf Leaf)
+                      (Node () (Node () Leaf Leaf)
+                               (Node () Leaf Leaf)
+                      )
+
+slideTree :: Tree ()
+slideTree = Node () (Node () (Node () Leaf Leaf) (Node () Leaf Leaf))
+                    (Node () (Node () Leaf Leaf) (Node () Leaf Leaf))
+
+label :: Tree a -> Tree Integer
+label tree = snd (go tree 1) where
+  go :: Tree a -> Integer -> (Integer, Tree Integer)
+  go Leaf         = \lun -> (lun, Leaf)
+  go (Node v l r) = \lun ->
+    let (lun', l') = go l (lun + 1) in
+    let (lun'', r'') = go r lun' in
+    (lun'', Node lun l' r'')
+    
+type State s a = s -> (s, a)
+
+bindS :: State s a -> (a -> State s b) -> s -> (s, b)
+bindS f rest = \origState ->
+  let (newState, retVal) = f origState in
+  rest retVal newState
+  
+get :: State s s
+get = \origState -> (origState, origState)
+
+put :: s -> State s ()
+put newState = \origState -> (newState, ())
+
+yield :: a -> State s a
+yield v = \origState -> (origState, v)
+
+use :: State Integer Integer
+use = \lun -> (lun + 1, lun)
+
+use' :: State Integer Integer
+use' =
+  bindS get              $ \lun ->
+  bindS (put (lun + 1))  $ \()  ->
+  yield lun
+  
+label' :: Tree a -> Tree Integer
+label' tree = snd (go tree 1) where
+  go :: Tree a -> State Integer (Tree Integer)
+  go Leaf = yield Leaf
+  go (Node x l r) =
+    bindS use     $ \lun ->
+    bindS (go l)  $ \l'  ->
+    bindS (go r)  $ \r'' ->
+    yield (Node lun l' r'')
+    
+tryNumber :: Int -> Maybe Int
+tryNumber x
+  | even x = Just x
+  | otherwise = Nothing
+
+toString :: Int -> String
+toString = show
+
+maybeMap :: (a -> b) -> Maybe a -> Maybe b
+maybeMap f x = case x of
+  Nothing -> Nothing
+  Just v  -> Just (f v)
+
+treeMap :: (a -> b) -> Tree a -> Tree b
+treeMap f x = case x of
+  Leaf -> Leaf
+  (Node v l r) -> Node (f v) (treeMap f l) (treeMap f r)
+
+
+type Fun x = Integer -> x
+
+funMap :: (a -> b) -> (Integer -> a) -> Integer -> b
+funMap f g x = f (g x)
+```
