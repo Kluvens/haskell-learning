@@ -274,3 +274,33 @@ mapReduce' split f input = mapResult `par` reduceResult
   mapResult = parMap rpar f (split input)
   reduceResult = mconcat mapResult `using` rpar
 ```
+
+## Effects
+Effects are observable phenomena from the execution of a program
+
+### Internal vs external effects
+An external effect is an effect that is ovservable outside the function.
+Internal effects are not observerable from outside.
+
+Examples of external effects:
+- console
+- file and network I/O
+- termination
+- non-termination
+- non-local control flow (exceptions)
+
+Are memory effects external or internal?
+- depends on the scope of the memory being accessed. Global variable accesses are external
+
+### Purity
+A function with no external effects is called a pure function
+
+Pure functions:
+A pure function is the mathematical notion of a function. That is, a function of type a->b is fully specified by a mapping from all elements of the domain type a to the codomain type b
+
+### The danger of side effects
+dangers:
+- they introduce (often subtle) requirements on the evaluation order
+- they are not visible from the type signature of the function
+- they introduce non-local dependencies which is bad for software design, increasing coupling
+- they interface badly with strong typing, for example mutable arrays in Java, or reference types in ML
