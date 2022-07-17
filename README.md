@@ -396,3 +396,7 @@ type Fun x = Integer -> x
 funMap :: (a -> b) -> (Integer -> a) -> Integer -> b
 funMap f g x = f (g x)
 ```
+
+## More syntax
+# let in
+The syntax is let <bindings> in <expression>. The variables that you define in the let part are accessible to the expression after the in part, but not accessible anywhere else.
